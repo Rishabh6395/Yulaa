@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-export default function Home() {
+export default function Landing() {
   return (
     <div
       className="min-h-screen bg-cover bg-center bg-no-repeat flex items-center justify-center"
