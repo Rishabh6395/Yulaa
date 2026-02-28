@@ -30,6 +30,8 @@ const Nav = () => {
           <Link href="#">Attendance</Link>
           <Link href="#">Fees</Link>
           <Link href="#">Homework</Link>
+          <Link href="#">Admissions</Link>
+          <Link href="#">Exams</Link>
           <Link href="#">About</Link>
         </div>
 

@@ -1,126 +1,280 @@
 "use client";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useRef, useState } from "react";
+import { toast } from "sonner"
+import { BackgroundBeams } from "@/components/ui/background-beams";
+import LocomotiveScroll from 'locomotive-scroll';
+
+
+
 
 const Hero2 = () => {
     // Array of images, text, and prices for the cards
-    const cards = [
+    const router = useRouter()
+    const [hovered, setHovered] = useState(null)
+    const scrollRef = useRef(null); // reference to scroll container
+    const locoScrollInstance = useRef<LocomotiveScroll | null>(null);
+
+    const features = [
         {
-            src: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-EverydaySeamlessWashedLeggingsGSSetsRedWASHB6B8X_RCCJ_1094_V2_640x.jpg?v=1769450567",
-            text: "Everyday Seamless Washed Legging 2.0",
-            price: 45.99,
+            title: "Admissions Portal",
+            icon: "🎓",
+            route: "/admissions",
+            available: true,
+            des: "Multi-step application form with guardian details, academic history, and admin approval workflow."
         },
         {
-            src: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-EverydaySeamlessWashedSportsBraGSSetsRedWASHB6B8Y_RCCJ_0179_V2_640x.jpg?v=1769450572",
-            text: "Everyday Seamless Washed Sports Bra",
-            price: 29.99,
+            title: "Smart Attendance",
+            icon: "✅",
+            route: "/attendance",
+            available: true,
+            des: "QR code check-ins, manual marking by teachers, real-time stats and downloadable reports."
         },
         {
-            src: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-EverydaySeamlessWashedCroppedTankGSSetsRedWASHB6B8Z_RCCJ_1119_V2_640x.jpg?v=1769450569",
-            text: "Everyday Seamless Cropped Tank",
-            price: 34.99,
+            title: "Homework Tracker",
+            icon: "📚",
+            route: "/homework",
+            available: true,
+            des: "Assign tasks by subject with due dates, submission uploads, and overdue notifications."
         },
         {
-            src: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-EverydaySeamlessWashedShortsGSSetsRedWASHB6B8W_RCCJ_0075_V3_640x.jpg?v=1769074819",
-            text: "Everyday Seamless Washed Shorts",
-            price: 39.99,
+            title: "Fee Management",
+            icon: "💳",
+            route: "/fees",
+            available: false,
+            des: "Invoice generation, online payments, donation campaigns with progress tracking and receipts."
         },
         {
-            src: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-25418579_640x.jpg?v=1769618580",
-            text: "Everyday Seamless Top",
-            price: 49.99,
+            title: "Exam Results",
+            icon: "📊",
+            route: "/exam",
+            available: false,
+            des: "Upload marks, auto-grade, monthly & quarterly trend charts per subject and student."
         },
         {
-            src: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-25418185_640x.jpg?v=1769592366",
-            text: "Everyday Seamless Legging",
-            price: 59.99,
+            title: "Transport Tracking",
+            icon: "🚌",
+            route: "/transport",
+            available: false,
+            des: "Multiple bus routes with live GPS tracking, ETA estimates, and seat availability."
         },
         {
-            src: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-LiftSeamlessShortsGSCarmineRedB6A8I_RBQW_0330_V3_640x.jpg?v=1769610265",
-            text: "Lift Seamless Shorts",
-            price: 44.99,
+            title: "Accessories Shop",
+            icon: "🛍️",
+            route: "/accessories",
+            available: false,
+            des: "Order uniforms, textbooks, and school supplies with a cart system and delivery tracking."
         },
         {
-            src: "https://cdn.shopify.com/s/files/1/0156/6146/files/images-25418536_640x.jpg?v=1769592306",
-            text: "Lift Seamless Tank",
-            price: 39.99,
-        },
-    ];
+            title: "Announcements",
+            icon: "📢",
+            route: "/announcements",
+            available: false,
+            des: "School-wide broadcast for events, holidays, and alerts with role-based posting permissions."
+        }
+    ]
+
+    const handleClick = (feature: any) => {
+        if (feature.available) {
+            router.push(feature.route)
+        } else {
+            toast("This feature is coming soon 🚀")
+            console.log("toast")
+        }
+    }
+
+    useEffect(() => {
+        if (!scrollRef.current) return;
+        locoScrollInstance.current = new LocomotiveScroll({
+            el: scrollRef.current,
+            smooth: true,
+        });
+        return () => {
+            if (locoScrollInstance.current) {
+                locoScrollInstance.current.destroy();
+                locoScrollInstance.current = null;
+            }
+        };
+    }, []);
 
     return (
-        <div className="bg-white text-black p-10 flex flex-col">
-            {/* Section Title */}
-            <div className="text-2xl font-bold mb-4">Womens</div>
-            <div className="text-xl font-semibold mb-6">NEW IN RED</div>
+        <div ref={scrollRef}
+            data-scroll-container
+            style={{ overflow: "hidden" }}
+            className="bg-black text-white p-10 flex flex-col relative">
 
-            {/* Horizontal Scrollable Cards */}
-            <div className="flex overflow-x-auto gap-4 pb-6 no-scrollbar">
-                {cards.map((card, index) => (
-                    <div key={index} className="flex-none w-64 h-full">
-                        <img
-                            src={card.src}
-                            alt={`Card ${index + 1}`}
-                            className="w-full h-2/3 object-cover mb-4 "
-                        />
-                        <div className="text-lg font-bold mb-1">{`$${card.price.toFixed(2)}`}</div>
-                        <p className="text-sm">{card.text}</p>
+            <div className="relative z-10 p-10 flex flex-col">
+                <div className="justify-center items-center flex flex-col text-center">
+                    <h1 className="text-[2.8rem] font-bold mb-4">Platform Overview</h1>
+                    <div className="text-3xl font-semibold mb-6">
+                        Everything a school needs, nothing it doesn&apos;t
                     </div>
-                ))}
+                    <div className="mb-6">
+                        Built with modern technologies for speed, reliability, and an
+                        exceptional user experience.
+                    </div>
+                </div>
+                <hr className="border-t border-zinc-800 mt-6 my-18" />
+                <section>
+                    <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                        {/* Card */}
+
+                        {features.map((feature, index) => (
+                            <div
+                                key={index}
+                                onClick={() => handleClick(feature)}
+                                onMouseEnter={() => setHovered(index)}
+                                onMouseLeave={() => setHovered(null)}
+                                className="relative cursor-pointer bg-zinc-900 border border-zinc-800 rounded-xl p-8 hover:bg-zinc-800 transition duration-300"
+                            >
+                                {/* Hover Message */}
+                                {!feature.available && hovered === index && (
+                                    <div className="absolute top-3 right-3 bg-black text-white text-xs px-3 py-1 rounded-md animate-fadeIn">
+                                        This feature is coming soon
+                                    </div>
+                                )}
+
+                                <div className="w-14 h-14 flex items-center justify-center rounded-lg bg-blue-600/20 text-2xl mb-6">
+                                    {feature.icon}
+                                </div>
+
+                                <h3 className="text-xl font-semibold mb-3">
+                                    {feature.title}
+                                </h3>
+
+                                <p className="text-slate-400">
+                                    {feature.des}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </section>
             </div>
-            <section className="flex flex-row justify-around p-5 py-[6rem]">
-                <div>
-                    <h1 className="font-bold text-xl">Women&apos;s Leggings</h1>
-                    <div className="py-4 list-none space-y-2">
-                        <li>Gym Leggings</li>
-                        <li>Leggings With Pockets</li>
-                        <li>High Waisted Leggings</li>
-                        <li>Scrunch Bum Leggings</li>
-                        <li>Black Leggings</li>
-                        <li>Flare Leggings</li>
-                        <li>Seamless Leggings</li>
-                        <li>Petite Gym Leggings</li>
-                    </div>
+            {/* <BackgroundBeams className="opacity-30 scale-90" /> */}
+
+            <hr className="border-t border-zinc-800 mt-6 my-18" />
+            <div className="justify-center items-center flex flex-col text-center">
+                <h3 className="font-semibold text-xl bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Who It&apos;s For</h3>
+                <h1 className="text-[2.8rem] font-bold mb-4">Built for Every Role</h1>
+                <div className="text-2xl font-semibold mb-24">
+                    Each user type gets a tailored experience with the right data and the right tools.
                 </div>
-                <div>
-                    <h1 className="font-bold text-xl">Women&apos;s Gymwear</h1>
-                    <div className="py-4 list-none space-y-2">
-                        <li>Women&apos;s Gym Wear</li>
-                        <li>Womens Gym Shorts</li>
-                        <li>Running Shorts</li>
-                        <li>Sports Bras</li>
-                        <li>High Impact Sports Bras</li>
-                        <li>Black Sports Bras</li>
-                        <li>Matching Sets</li>
-                        <li>Loungewear</li>
+
+                <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+
+                    {/* Administrator */}
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 relative hover:-translate-y-2 transition duration-300 hover:shadow-xl hover:shadow-blue-500/10">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-t-2xl" />
+
+                        <div className="text-4xl mb-4">🛡️</div>
+                        <h3 className="text-xl font-semibold mb-1">Administrator</h3>
+                        <p className="text-slate-400 mb-6">Full system access</p>
+
+                        <ul className="space-y-3 text-slate-300">
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Approve admissions
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Post announcements
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Upload exam results
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Manage all users
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> View all reports
+                            </li>
+                        </ul>
                     </div>
-                </div>
-                <div>
-                    <h1 className="font-bold text-xl">Men&apos;s Gymwear</h1>
-                    <div className="py-4 list-none space-y-2">
-                        <li>Men&apos;s Gymwear</li>
-                        <li>Mens Gym Shorts</li>
-                        <li>Shorts with Pockets</li>
-                        <li>Men&apos;s Running Shorts</li>
-                        <li>Gym Shirts</li>
-                        <li>Sleeveless T-Shirts</li>
-                        <li>Gym Stringers</li>
-                        <li>Men&apos;s Baselayers</li>
+
+                    {/* Teacher */}
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 relative hover:-translate-y-2 transition duration-300 hover:shadow-xl hover:shadow-purple-500/10">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-purple-500 to-pink-500 rounded-t-2xl" />
+
+                        <div className="text-4xl mb-4">👩‍🏫</div>
+                        <h3 className="text-xl font-semibold mb-1">Teacher</h3>
+                        <p className="text-slate-400 mb-6">Class management</p>
+
+                        <ul className="space-y-3 text-slate-300">
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Mark attendance
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Assign homework
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Upload exam scores
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Post announcements
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> View submissions
+                            </li>
+                        </ul>
                     </div>
-                </div>
-                <div>
-                    <h1 className="font-bold text-xl">Accessories</h1>
-                    <div className="py-4 list-none space-y-2">
-                        <li>Women&apos;s Underwear</li>
-                        <li>Men&apos;s Underwear</li>
-                        <li>Workout Bags</li>
-                        <li>Duffel Bags</li>
-                        <li>Gym Socks</li>
-                        <li>Crew Socks</li>
-                        <li>Caps</li>
-                        <li>Beanies</li>
+
+                    {/* Student */}
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 relative hover:-translate-y-2 transition duration-300 hover:shadow-xl hover:shadow-emerald-500/10">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-t-2xl" />
+
+                        <div className="text-4xl mb-4">🎒</div>
+                        <h3 className="text-xl font-semibold mb-1">Student</h3>
+                        <p className="text-slate-400 mb-6">Personal dashboard</p>
+
+                        <ul className="space-y-3 text-slate-300">
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> QR attendance check-in
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> View & submit homework
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Check exam results
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Pay fees online
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Track bus in real-time
+                            </li>
+                        </ul>
                     </div>
+
+                    {/* Parent */}
+                    <div className="bg-slate-900 border border-slate-800 rounded-2xl p-8 relative hover:-translate-y-2 transition duration-300 hover:shadow-xl hover:shadow-orange-500/10">
+                        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-orange-500 to-red-500 rounded-t-2xl" />
+
+                        <div className="text-4xl mb-4">👨‍👩‍👧</div>
+                        <h3 className="text-xl font-semibold mb-1">Parent</h3>
+                        <p className="text-slate-400 mb-6">Child monitoring</p>
+
+                        <ul className="space-y-3 text-slate-300">
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Apply for admissions
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Track child's attendance
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Monitor exam scores
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Pay school fees
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="text-emerald-400">✓</span> Follow bus location
+                            </li>
+                        </ul>
+                    </div>
+
                 </div>
-            </section>
-            <hr className="border-t border-gray-300 mt-2 mb-8" />
+
+            </div>
+
+            <hr className="border-t border-zinc-800 mt-6 my-18" />
             <div className="p-10 flex flex-col md:flex-row justify-between gap-10">
                 {/* Left Column */}
                 <div className="flex flex-col md:flex-row gap-16">
@@ -209,6 +363,7 @@ const Hero2 = () => {
                     <div>Modern Slavery</div>
                 </div>
             </div>
+
         </div>
     );
 };

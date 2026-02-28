@@ -10,7 +10,7 @@ export default function Home() {
         <h1 className="font-sans mb-4 text-[3rem] font-extrabold animate-fadeUp leading-tight">
           The Modern
           <br />
-          <span className="bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">
             School OS
           </span>
           <br />
