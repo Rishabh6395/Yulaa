@@ -38,6 +38,13 @@ const Hero2 = () => {
             des: "Assign tasks by subject with due dates, submission uploads, and overdue notifications."
         },
         {
+            title: "Announcements",
+            icon: "📢",
+            route: "/announcements",
+            available: true,
+            des: "School-wide broadcast for events, holidays, and alerts with role-based posting permissions."
+        },
+        {
             title: "Fee Management",
             icon: "💳",
             route: "/fees",
@@ -64,13 +71,6 @@ const Hero2 = () => {
             route: "/accessories",
             available: false,
             des: "Order uniforms, textbooks, and school supplies with a cart system and delivery tracking."
-        },
-        {
-            title: "Announcements",
-            icon: "📢",
-            route: "/announcements",
-            available: false,
-            des: "School-wide broadcast for events, holidays, and alerts with role-based posting permissions."
         }
     ]
 
@@ -275,92 +275,52 @@ const Hero2 = () => {
             </div>
 
             <hr className="border-t border-zinc-800 mt-6 my-18" />
-            <div className="p-10 flex flex-col md:flex-row justify-between gap-10">
+            <h1 className="flex flex-col justify-center items-center text-3xl bg-linear-to-r from-blue-500 to-purple-800 bg-clip-text text-transparent pb-8">Built for Schools. Trusted by Educators.</h1>
+            <div className="p-10 flex flex-col md:flex-row  justify-between text-zinc-500 gap-10">
                 {/* Left Column */}
-                <div className="flex flex-col md:flex-row gap-16">
+                <div className="flex flex-col  md:flex-row gap-16">
                     <div>
-                        <h2 className="font-bold mb-2">Help</h2>
+                        <h2 className="font-bold mb-2 hover:text-zinc-600 cursor-pointer">Help</h2>
                         <ul className="list-none space-y-1">
-                            <li>FAQ</li>
-                            <li>Delivery Information</li>
-                            <li>Return Policy</li>
-                            <li>Make A Return</li>
-                            <li>Orders</li>
-                            <li>Submit a Fake</li>
+                            <li className="hover:text-zinc-600 cursor-pointer">FAQ</li>
+                            <li className="hover:text-zinc-600 cursor-pointer">Return Policy</li>
+                            <li className="hover:text-zinc-600 cursor-pointer">Make A Return</li>
                         </ul>
                     </div>
 
                     <div>
-                        <h2 className="font-bold mb-2">My Account</h2>
+                        <h2 className="font-bold mb-2 hover:text-zinc-600 cursor-pointer">My Account</h2>
                         <ul className="list-none space-y-1">
-                            <li>Login</li>
-                            <li>Register</li>
+                            <li className="hover:text-zinc-600 cursor-pointer">Login</li>
+                            <li className="hover:text-zinc-600 cursor-pointer">Register</li>
                         </ul>
                     </div>
 
                     <div>
-                        <h2 className="font-bold mb-2">Pages</h2>
+                        <h2 className="font-bold mb-2 hover:text-zinc-600 cursor-pointer">Pages</h2>
                         <ul className="list-none space-y-1">
-                            <li>Stores</li>
-                            <li>Refer a Friend</li>
-                            <li>RagePeak Central</li>
-                            <li>RagePeak Loyalty</li>
-                            <li>About Us</li>
-                            <li>Careers</li>
-                            <li>Student Discount</li>
-                            <li>Training App</li>
-                            <li>Military Discount</li>
+                            <li className="hover:text-zinc-600 cursor-pointer">Stores</li>
+                            <li className="hover:text-zinc-600 cursor-pointer">Training App</li>
+                            <li className="hover:text-zinc-600 cursor-pointer">Military Discount</li>
                         </ul>
                     </div>
                 </div>
 
                 {/* Right Column */}
-                <div className="flex flex-col gap-4">
-                    <h2 className="font-bold mb-4">More About RagePeak</h2>
-                    <div className="flex flex-col md:flex-row gap-4">
-                        {/* Card 1 */}
-                        <div className="flex flex-col items-center bg-white p-4 rounded shadow">
-                            <img
-                                src="https://www.gymshark.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fwl6q2in9o7k3%2F4QtcnsrjM61MBOfKzadnle%2F71b2f410cc0b750b70fd93a1866e1b5c%2Fblog-footer.jpg&w=1920&q=80"
-                                alt="Blog"
-                                className="w-36 h-24 object-cover rounded mb-2"
-                            />
-                            <span className="text-center font-semibold">Blog</span>
-                        </div>
-
-                        {/* Card 2 */}
-                        <div className="flex flex-col items-center bg-white p-4 rounded shadow">
-                            <img
-                                src="https://www.gymshark.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fwl6q2in9o7k3%2F3PKQBuoomlHFd10tV2xhCY%2F2de6be180d73c666374009c7a1065be4%2F1_Students.jpg&w=1920&q=80"
-                                alt="Student Discount"
-                                className="w-36 h-24 object-cover rounded mb-2"
-                            />
-                            <span className="text-center font-semibold">
-                                15% Student Discount
-                            </span>
-                        </div>
-
-                        {/* Card 3 */}
-                        <div className="flex flex-col items-center bg-white p-4 rounded shadow">
-                            <img
-                                src="https://www.gymshark.com/_next/image?url=https%3A%2F%2Fimages.ctfassets.net%2Fwl6q2in9o7k3%2F78i6cwhCg8cVO59Dvlk7Gy%2F0f941cc6bb840d0556fca0913b884674%2FNewsletter.jpg&w=1920&q=80"
-                                alt="Email Sign Up"
-                                className="w-36 h-24 object-cover rounded mb-2"
-                            />
-                            <span className="text-center font-semibold">Email Sign Up</span>
-                        </div>
-                    </div>
+                <div className="flex flex-col pl-[24rem]">
+                    <h2 className="font-bold mb-4">More About Yoola</h2>
+                    <p className="">Our platform is designed specifically for schools to simplify everyday academic and administrative operations. From attendance tracking to homework management and fee monitoring, we provide a unified system that helps teachers, administrators, and parents stay connected and informed.
+                        We focus on reliability, security, and ease of use so that schools can manage their daily workflows without depending on manual registers or disconnected tools.</p>
                 </div>
             </div>
             <hr className="border-t border-gray-300 mt-2 mb-8" />
             <div className="flex justify-around gap-4">
-                <div>© 2026 | RagePeak Limited | All Rights Reserved. | We Do Gym.</div>
+                <div>© 2026 | Yoola Limited | All Rights Reserved. | One Platform. Total School Control.</div>
                 <div className="gap-4 flex">
                     <div>Terms & Conditions</div>
                     <div>Terms of Use</div>
                     <div>Privacy Notice</div>
                     <div>Cookie Policy</div>
-                    <div>Modern Slavery</div>
                 </div>
             </div>
 

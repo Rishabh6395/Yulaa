@@ -2,7 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+/**
+ *
+ *
+ * @return {*} 
+ */
 const Nav = () => {
     const router = useRouter()
     const redirectLink = () => {
@@ -32,7 +36,7 @@ const Nav = () => {
           <Link href="#">Homework</Link>
           <Link href="#">Admissions</Link>
           <Link href="#">Exams</Link>
-          <Link href="#">About</Link>
+          <Link href="/about">About</Link>
         </div>
 
         {/* Buttons */}
