@@ -12,6 +12,9 @@ const Nav = () => {
     const redirectLink = () => {
         router.push('/signin')
     }
+    const redirectRegisterLink = () => {
+        router.push('/register-school')
+    }
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50">
@@ -47,8 +50,8 @@ const Nav = () => {
           </button>
 
           <button className="bg-white text-black px-5 py-2 rounded-full 
-                             font-medium hover:bg-gray-200 transition">
-            Get Started →
+                             font-medium hover:bg-gray-200 transition" onClick={redirectRegisterLink}>
+            Register your School →
           </button>
         </div>
       </div>

@@ -11,7 +11,7 @@ import LocomotiveScroll from 'locomotive-scroll';
 const Hero2 = () => {
     // Array of images, text, and prices for the cards
     const router = useRouter()
-    const [hovered, setHovered] = useState(null)
+    const [hovered, setHovered] = useState<number | null>(null);
     const scrollRef = useRef(null); // reference to scroll container
     const locoScrollInstance = useRef<LocomotiveScroll | null>(null);
 
@@ -85,7 +85,7 @@ const Hero2 = () => {
 
     useEffect(() => {
         if (!scrollRef.current) return;
-        locoScrollInstance.current = new LocomotiveScroll({
+        locoScrollInstance.current = new (LocomotiveScroll as any)({
             el: scrollRef.current,
             smooth: true,
         });

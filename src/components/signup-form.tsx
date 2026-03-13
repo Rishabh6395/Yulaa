@@ -1,7 +1,4 @@
-"use client"
 import { Button } from "@/components/ui/button"
-
-import { useRouter } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -16,14 +13,8 @@ import {
   FieldLabel,
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import Link from "next/link"
-import { Router } from "next/router"
 
 export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
-  const router = useRouter()
-    const redirectLink = () => {
-        router.push('/login')
-    }
   return (
     <Card {...props}>
       <CardHeader>
@@ -59,13 +50,13 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                 Must be at least 8 characters long.
               </FieldDescription>
             </Field>
-            {/* <Field>
+            <Field>
               <FieldLabel htmlFor="confirm-password">
                 Confirm Password
               </FieldLabel>
               <Input id="confirm-password" type="password" required />
               <FieldDescription>Please confirm your password.</FieldDescription>
-            </Field> */}
+            </Field>
             <FieldGroup>
               <Field>
                 <Button type="submit">Create Account</Button>
@@ -73,7 +64,7 @@ export function SignupForm({ ...props }: React.ComponentProps<typeof Card>) {
                   Sign up with Google
                 </Button>
                 <FieldDescription className="px-6 text-center">
-                  Already have an account? <button onClick={redirectLink}>Sign in</button>
+                  Already have an account? <a href="#">Sign in</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>

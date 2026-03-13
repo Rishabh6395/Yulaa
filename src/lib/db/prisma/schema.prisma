@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+
+model School {
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  plan      String
+  createdAt DateTime @default(now())
+
+  users  User[]
+  roles  Role[]
+  // Add SchoolRegistration relation (to know which registration belongs to which school)
+  registrations SchoolRegistration[] // A school can have many registrations
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  isActive  String?
+  age       Int?
+  password  String
+  schoolId  Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime? @updatedAt
+
+  school    School   @relation(fields: [schoolId], references: [id])
+  userRoles UserRole[]
+}
+
+model Role {
+  id        Int      @id @default(autoincrement())
+  name      String
+  schoolId  Int
+
+  school          School           @relation(fields: [schoolId], references: [id])
+  userRoles       UserRole[]
+  rolePermissions RolePermission[]
+
+  // Relation to SchoolRegistration model (Roles can be assigned during registration)
+  schoolRegistrations SchoolRegistration[] // A role can be assigned to multiple registrations
+}
+
+model Permission {
+  id        Int    @id @default(autoincrement())
+  action    String
+  resource  String
+
+  rolePermissions RolePermission[]  
+}
+
+model RolePermission {
+  roleId       Int
+  permissionId Int
+
+  role        Role       @relation(fields: [roleId], references: [id])
+  permission  Permission @relation(fields: [permissionId], references: [id])
+
+  @@id([roleId, permissionId])
+}
+
+model UserRole {
+  userId Int
+  roleId Int
+
+  user User @relation(fields: [userId], references: [id])
+  role Role @relation(fields: [roleId], references: [id])
+
+  @@id([userId, roleId])
+}
+
+model SchoolRegistration {
+  id           Int      @id @default(autoincrement())
+  fullName     String   
+  email        String   @unique
+  password     String   
+  roleAtSchool Role     @relation(fields: [roleId], references: [id])
+  roleId       Int      
+  numStudents  Int      
+  schoolName   String   
+  state        String   
+  medium       String   
+
+  createdAt    DateTime @default(now()) // Timestamp when registered
+
+  // Relation to the School model
+  school       School   @relation(fields: [schoolId], references: [id])
+  schoolId     Int      // Foreign key for the School model
+}
